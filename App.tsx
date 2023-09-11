@@ -14,9 +14,6 @@ if (__DEV__) {
 }
 
 function App(): JSX.Element {
-  const token = store.getState().userReducer;
-  console.log(token);
-
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>

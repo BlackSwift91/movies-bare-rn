@@ -10,7 +10,6 @@ import {BottomNavigator} from './BottomNavigator';
 
 export const RootNavigation = () => {
   const token = useAppSelector(state => state.userReducer.token);
-  console.log(token);
   return (
     <NavigationContainer>
       <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />

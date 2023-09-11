@@ -84,7 +84,6 @@ const SignUp: FC<ISignUp> = ({navigation}) => {
     if (!validate()) {
       return;
     }
-    console.log('21313123');
     refetch();
   };
 
