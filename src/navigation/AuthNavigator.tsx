@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import LogIn from '../screen/LogIn';
 import SignUp from '../screen/SignUp';
@@ -14,16 +14,8 @@ export const AuthNavigator = () => {
         headerMode: 'screen',
         headerTitleAlign: 'center',
       }}>
-      <Stack.Screen
-        name="LogIn"
-        component={LogIn}
-        options={{headerTitle: 'LogIn'}}
-      />
-      <Stack.Screen
-        name="SignUp"
-        component={SignUp}
-        options={{headerTitle: 'SignUp'}}
-      />
+      <Stack.Screen name="LogIn" component={LogIn} options={{ headerTitle: 'LogIn' }} />
+      <Stack.Screen name="SignUp" component={SignUp} options={{ headerTitle: 'SignUp' }} />
     </Stack.Navigator>
   );
 };

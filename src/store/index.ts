@@ -1,6 +1,6 @@
-import {configureStore} from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 
-import {persistStore, persistReducer} from 'redux-persist';
+import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import appReducer from './rootReducer';
 
@@ -35,16 +35,16 @@ const store = configureStore({
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: false,
-      immutableCheck: {warnAfter: 128},
+      immutableCheck: { warnAfter: 128 },
     }).concat(middlewares),
 });
 
 const persistor = persistStore(store);
 
-const {dispatch} = store;
+const { dispatch } = store;
 
 export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 
-export {store, persistor, persistReducer, dispatch};
+export { store, persistor, persistReducer, dispatch };

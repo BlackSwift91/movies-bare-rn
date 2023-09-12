@@ -1,5 +1,5 @@
-import {RouteProp} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 // ////////////////////////////////////////////////////////////////////////////////////
 
@@ -37,9 +37,20 @@ export interface ISettings {
 
 // ////////////////////////////////////////////////////////////////////////////////////
 
+export interface IMovie {
+  actors: { createdAt: Date; id: number; name: string; updatedAt: Date }[];
+  createdAt: Date;
+  format: string;
+  id: number;
+  title: string;
+  updatedAt: Date;
+  year: number;
+}
+
 export type StackNavigatorParamsList = {
   Main: undefined;
-  MovieDetails: {id: number};
+  MovieDetails: { id: number };
+  EditMovie: { movie: IMovie; isEditing: boolean };
 };
 
 export interface IMain {
@@ -49,4 +60,9 @@ export interface IMain {
 export interface IMovieDetails {
   navigation: StackNavigationProp<StackNavigatorParamsList, 'MovieDetails'>;
   route: RouteProp<StackNavigatorParamsList, 'MovieDetails'>;
+}
+
+export interface IEditMovie {
+  navigation: StackNavigationProp<StackNavigatorParamsList, 'EditMovie'>;
+  route: RouteProp<StackNavigatorParamsList, 'EditMovie'>;
 }

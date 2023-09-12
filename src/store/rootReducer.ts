@@ -1,4 +1,4 @@
-import {combineReducers} from '@reduxjs/toolkit';
+import { combineReducers } from '@reduxjs/toolkit';
 import userReducer from './userSlice';
 import movieReducer from './movieSlice';
 

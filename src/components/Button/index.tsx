@@ -1,12 +1,6 @@
-import {
-  StyleSheet,
-  Text,
-  TextStyle,
-  TouchableOpacity,
-  ViewStyle,
-} from 'react-native';
-import React, {FC} from 'react';
-import {COLORS} from '../../assets/theme';
+import { StyleSheet, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
+import React, { FC } from 'react';
+import { COLORS } from '../../assets/theme';
 
 interface IProp {
   text: string;
@@ -30,11 +24,7 @@ const CustomButton: FC<IProp> = ({
 }) => {
   return (
     <TouchableOpacity
-      style={[
-        isFilled ? styles.filled : styles.outline,
-        containerStyle,
-        isDisabled ? styles.disabled : null,
-      ]}
+      style={[isFilled ? styles.filled : styles.outline, containerStyle, isDisabled ? styles.disabled : null]}
       onPress={onButtonPress}
       disabled={isDisabled}>
       <Text

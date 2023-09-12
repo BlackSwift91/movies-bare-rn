@@ -1,11 +1,11 @@
 import axios from 'axios';
-import {API, baseUrl} from '../../constants';
+import { API, baseUrl } from '../../constants';
 
 class MovieService {
   async getAllMovies(token: string) {
     const config = {
       method: 'get',
-      url: `${baseUrl}${API}movies?sort=title&order=ASC&limit=10&offset=0`,
+      url: `${baseUrl}${API}movies?sort=title&order=ASC&&offset=0`,
       headers: {
         Authorization: token,
       },
@@ -36,13 +36,7 @@ class MovieService {
       });
   }
 
-  async addMovie(
-    title: string,
-    year: string,
-    format: string,
-    actors: {name: string; id: string}[],
-    token: string,
-  ) {
+  async addMovie(title: string, year: string, format: string, actors: { name: string; id: string }[], token: string) {
     const actorsArray = actors.map(it => it.name);
 
     const data = JSON.stringify({
@@ -56,6 +50,42 @@ class MovieService {
       method: 'post',
       maxBodyLength: Infinity,
       url: `${baseUrl}${API}movies`,
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+      data: data,
+    };
+
+    return axios
+      .request(config)
+      .then(response => response)
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  async editMovie(
+    id: number,
+    title: string,
+    year: string,
+    format: string,
+    actors: { name: string; id: string }[],
+    token: string,
+  ) {
+    const actorsArray = actors.map(it => it.name);
+
+    const data = JSON.stringify({
+      title,
+      year: Number(year),
+      format,
+      actors: actorsArray,
+    });
+
+    const config = {
+      method: 'patch',
+      maxBodyLength: Infinity,
+      url: `${baseUrl}${API}movies/${id}`,
       headers: {
         Authorization: token,
         'Content-Type': 'application/json',
@@ -90,11 +120,7 @@ class MovieService {
       });
   }
 
-  async searchMovie(
-    searchText: string,
-    searchType: 'title' | 'actor' | 'search',
-    token: string,
-  ) {
+  async searchMovie(searchText: string, searchType: 'title' | 'actor' | 'search', token: string) {
     const config = {
       method: 'get',
       maxBodyLength: Infinity,
@@ -113,18 +139,16 @@ class MovieService {
       });
   }
 
-  async importMovies(token: string) {
-    const data = new FormData();
-    // data.append();
-
+  async importMovies(formData: FormData, token: string) {
     const config = {
       method: 'post',
       maxBodyLength: Infinity,
       url: `${baseUrl}${API}movies/import`,
       headers: {
         Authorization: token,
+        'Content-Type': 'multipart/form-data',
       },
-      data: data,
+      data: formData,
     };
 
     return axios

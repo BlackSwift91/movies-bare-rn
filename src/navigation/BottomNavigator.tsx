@@ -1,10 +1,10 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddMovie from '../screen/AddMovie';
 import AddMovieIcon from '../assets/svg/AddMovieIcon';
 import SettingsIcon from '../assets/svg/SettingsIcon';
 import MovieIcon from '../assets/svg/MovieIcon';
-import {StackNavigator} from './StackNavigator';
+import { StackNavigator } from './StackNavigator';
 
 import Settings from '../screen/Settings';
 
@@ -21,7 +21,7 @@ export function BottomNavigator() {
         component={StackNavigator}
         options={{
           headerTitle: 'Home',
-          tabBarIcon: ({focused}) => <MovieIcon focused={focused} />,
+          tabBarIcon: ({ focused }) => <MovieIcon focused={focused} />,
           tabBarShowLabel: false,
           headerShown: false,
         }}
@@ -31,7 +31,7 @@ export function BottomNavigator() {
         component={AddMovie}
         options={{
           headerTitle: 'Add Movie',
-          tabBarIcon: ({focused}) => <AddMovieIcon focused={focused} />,
+          tabBarIcon: ({ focused }) => <AddMovieIcon focused={focused} />,
           tabBarShowLabel: false,
         }}
       />
@@ -41,7 +41,7 @@ export function BottomNavigator() {
         component={Settings}
         options={{
           headerTitle: 'Settings',
-          tabBarIcon: ({focused}) => <SettingsIcon focused={focused} />,
+          tabBarIcon: ({ focused }) => <SettingsIcon focused={focused} />,
           tabBarShowLabel: false,
         }}
       />

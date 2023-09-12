@@ -1,18 +1,18 @@
-import {StyleSheet, View} from 'react-native';
-import React, {FC, useEffect, useState} from 'react';
-import {useQuery} from '@tanstack/react-query';
+import { StyleSheet, View } from 'react-native';
+import React, { FC, useState } from 'react';
 
-import {COLORS} from '../assets/theme';
+import { COLORS } from '../assets/theme';
 import TextComponent from '../components/TextComponent';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Spacer from '../components/Spacer';
-import {useAppDispatch} from '../store/hooks';
-import {setUserToken} from '../store/userSlice';
-import {ISignUp} from '../navigation/INavigation';
-import {userService} from '../services/api/UserService';
+import { useAppDispatch } from '../store/hooks';
+import { setUserToken } from '../store/userSlice';
+import { ISignUp } from '../navigation/INavigation';
+import { userService } from '../services/api/UserService';
+import { queryClient } from '../services/api/queryClient';
 
-const SignUp: FC<ISignUp> = ({navigation}) => {
+const SignUp: FC<ISignUp> = ({ navigation }) => {
   const dispatch = useAppDispatch();
 
   const [name, setName] = useState('');
@@ -23,28 +23,24 @@ const SignUp: FC<ISignUp> = ({navigation}) => {
   const [errors, setErrors] = useState<Record<string, any>>({});
 
   const handleError = (error: string | null, type: string) => {
-    setErrors(prevState => ({...prevState, [type]: error}));
+    setErrors(prevState => ({ ...prevState, [type]: error }));
   };
 
-  const {data, refetch} = useQuery(
-    ['createUser'],
-    async () =>
-      await userService.userSignUp(email, name, password, confirmPassword),
-    {
-      refetchOnWindowFocus: false,
-      enabled: false,
-    },
-  );
-
-  useEffect(() => {
-    if (data?.data?.token) {
-      dispatch(setUserToken(data.data.token));
+  const onSignUpButtonPress = async () => {
+    if (!validate()) {
+      return;
+    }
+    const result = await queryClient.fetchQuery(['deleteMovie'], () =>
+      userService.userSignUp(email, name, password, confirmPassword),
+    );
+    if (result?.data?.token) {
+      dispatch(setUserToken(result.data.token));
     }
 
-    if (data?.data?.error?.code === 'EMAIL_NOT_UNIQUE') {
+    if (result?.data?.error?.code === 'EMAIL_NOT_UNIQUE') {
       handleError('User already exist', 'email');
     }
-  }, [data]);
+  };
 
   function validate() {
     let isValid = true;
@@ -80,24 +76,17 @@ const SignUp: FC<ISignUp> = ({navigation}) => {
     navigation.goBack();
   };
 
-  const onSignUpButtonPress = () => {
-    if (!validate()) {
-      return;
-    }
-    refetch();
-  };
-
   return (
     <View style={styles.container}>
       <TextComponent
         text="Hi, Welcome!"
-        componentStyle={{marginTop: 36, marginBottom: 8}}
-        textStyle={{fontSize: 27, lineHeight: 28, fontWeight: 'bold'}}
+        componentStyle={{ marginTop: 36, marginBottom: 8 }}
+        textStyle={{ fontSize: 27, lineHeight: 28, fontWeight: 'bold' }}
       />
       <TextComponent
         text="Start your journey to the world of movies"
-        componentStyle={{marginBottom: 16}}
-        textStyle={{fontSize: 14, lineHeight: 16}}
+        componentStyle={{ marginBottom: 16 }}
+        textStyle={{ fontSize: 14, lineHeight: 16 }}
       />
       <Input
         text={email}
@@ -130,27 +119,16 @@ const SignUp: FC<ISignUp> = ({navigation}) => {
         error={errors.confirmPassword}
         onFocus={() => handleError(null, 'confirmPassword')}
       />
-      <Button
-        text={'Create an account'}
-        onButtonPress={onSignUpButtonPress}
-        isFilled
-      />
+      <Button text={'Create an account'} onButtonPress={onSignUpButtonPress} isFilled />
       <View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <TextComponent
-          text="Have an account?"
-          textStyle={{fontSize: 14, lineHeight: 16}}
-        />
+        <TextComponent text="Have an account?" textStyle={{ fontSize: 14, lineHeight: 16 }} />
         <Spacer horizontal />
-        <Button
-          text={'LogIn'}
-          onButtonPress={onLogInButtonPress}
-          isBlueTextColor
-        />
+        <Button text={'LogIn'} onButtonPress={onLogInButtonPress} isBlueTextColor />
       </View>
     </View>
   );

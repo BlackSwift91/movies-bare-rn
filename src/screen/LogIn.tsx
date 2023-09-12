@@ -1,19 +1,19 @@
-import {StyleSheet, View} from 'react-native';
-import React, {FC, useState} from 'react';
+import { StyleSheet, View } from 'react-native';
+import React, { FC, useState } from 'react';
 
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Spacer from '../components/Spacer';
 import TextComponent from '../components/TextComponent';
 
-import {COLORS} from '../assets/theme';
-import {userService} from '../services/api/UserService';
-import {useAppDispatch} from '../store/hooks';
-import {setUserToken} from '../store/userSlice';
-import {ILogIn} from '../navigation/INavigation';
-import {queryClient} from '../services/api/queryClient';
+import { COLORS } from '../assets/theme';
+import { userService } from '../services/api/UserService';
+import { useAppDispatch } from '../store/hooks';
+import { setUserToken } from '../store/userSlice';
+import { ILogIn } from '../navigation/INavigation';
+import { queryClient } from '../services/api/queryClient';
 
-const LogIn: FC<ILogIn> = ({navigation}) => {
+const LogIn: FC<ILogIn> = ({ navigation }) => {
   const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState('');
@@ -22,31 +22,23 @@ const LogIn: FC<ILogIn> = ({navigation}) => {
   const [errors, setErrors] = useState<Record<string, any>>({});
 
   const handleError = (error: string | null, type: string) => {
-    setErrors(prevState => ({...prevState, [type]: error}));
+    setErrors(prevState => ({ ...prevState, [type]: error }));
   };
 
   const onLogInButtonPress = async () => {
     if (!validate()) {
       return;
     }
-    const result = await queryClient.fetchQuery(['deleteMovie'], () =>
-      userService.userSignIn(email, password),
-    );
+    const result = await queryClient.fetchQuery(['deleteMovie'], () => userService.userSignIn(email, password));
     if (result?.data?.token) {
       dispatch(setUserToken(result.data.token));
     }
 
-    if (
-      result?.data?.error?.fields.email &&
-      result?.data?.error?.code === 'FORMAT_ERROR'
-    ) {
+    if (result?.data?.error?.fields.email && result?.data?.error?.code === 'FORMAT_ERROR') {
       handleError('Wrong email', 'email');
     }
 
-    if (
-      result?.data?.error?.fields?.email &&
-      result?.data?.error?.code === 'AUTHENTICATION_FAILED'
-    ) {
+    if (result?.data?.error?.fields?.email && result?.data?.error?.code === 'AUTHENTICATION_FAILED') {
       handleError('User not existed', 'email');
     }
   };
@@ -73,13 +65,13 @@ const LogIn: FC<ILogIn> = ({navigation}) => {
     <View style={styles.container}>
       <TextComponent
         text="Hi, Welcome back!"
-        componentStyle={{marginTop: 36, marginBottom: 8}}
-        textStyle={{fontSize: 27, lineHeight: 28, fontWeight: 'bold'}}
+        componentStyle={{ marginTop: 36, marginBottom: 8 }}
+        textStyle={{ fontSize: 27, lineHeight: 28, fontWeight: 'bold' }}
       />
       <TextComponent
         text="Enter your credentials to get access to your account"
-        componentStyle={{marginBottom: 16}}
-        textStyle={{fontSize: 14, lineHeight: 16}}
+        componentStyle={{ marginBottom: 16 }}
+        textStyle={{ fontSize: 14, lineHeight: 16 }}
       />
       <Input
         text={email}
@@ -105,16 +97,9 @@ const LogIn: FC<ILogIn> = ({navigation}) => {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <TextComponent
-          text="Don't have an account?"
-          textStyle={{fontSize: 14, lineHeight: 16}}
-        />
+        <TextComponent text="Don't have an account?" textStyle={{ fontSize: 14, lineHeight: 16 }} />
         <Spacer horizontal />
-        <Button
-          text={'SignUp'}
-          onButtonPress={onSignInButtonPress}
-          isBlueTextColor
-        />
+        <Button text={'SignUp'} onButtonPress={onSignInButtonPress} isBlueTextColor />
       </View>
     </View>
   );

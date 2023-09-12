@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface IMovies {
   id: number;
@@ -27,6 +27,6 @@ export const movieSlice = createSlice({
   },
 });
 
-export const {setMovies} = movieSlice.actions;
+export const { setMovies } = movieSlice.actions;
 
 export default movieSlice.reducer;

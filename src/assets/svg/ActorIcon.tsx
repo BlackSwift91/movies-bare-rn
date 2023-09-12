@@ -1,16 +1,11 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
 
-import Svg, { G, Path } from "react-native-svg";
-import { COLORS } from "../theme";
+import Svg, { G, Path } from 'react-native-svg';
+import { COLORS } from '../theme';
 
 const ActorIcon: FC = () => {
   return (
-    <Svg
-      fill={COLORS.BLACK}
-      height="24px"
-      width="24px"
-      viewBox="0 0 473.194 473.194"
-    >
+    <Svg fill={COLORS.BLACK} height="24px" width="24px" viewBox="0 0 473.194 473.194">
       <G>
         <Path
           d="M464.653,167.757c-0.824-3.273-2.996-6.037-5.969-7.633c-2.965-1.586-6.47-1.855-9.65-0.738

@@ -8,8 +8,8 @@ import {
   NativeSyntheticEvent,
   TextInputEndEditingEventData,
 } from 'react-native';
-import React, {Dispatch, FC, SetStateAction, useState} from 'react';
-import {COLORS} from '../../assets/theme';
+import React, { Dispatch, FC, SetStateAction, useState } from 'react';
+import { COLORS } from '../../assets/theme';
 import EyeIcon from '../../assets/svg/EyeIcon';
 import EyeOffIcon from '../../assets/svg/EyeOffIcon';
 
@@ -22,9 +22,7 @@ interface IProps {
   isDecimal?: boolean;
   error?: string | null;
   onFocus?: () => void;
-  onEndEditing?: (
-    e: NativeSyntheticEvent<TextInputEndEditingEventData>,
-  ) => void;
+  onEndEditing?: (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => void;
   componentStyle?: ViewStyle | undefined;
 }
 
@@ -47,6 +45,11 @@ const Input: FC<IProps> = ({
     setIsPasswordVisible(!isPasswordVisible);
   };
 
+  const onEndEdit = (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
+    setText(e.nativeEvent.text.trim());
+    onEndEditing(e);
+  };
+
   return (
     <View style={[styles.wrapper, componentStyle]}>
       <View style={[styles.container, error ? styles.errorStyle : undefined]}>
@@ -63,7 +66,7 @@ const Input: FC<IProps> = ({
             onFocus();
             setIsFocused(true);
           }}
-          onEndEditing={onEndEditing}
+          onEndEditing={onEndEdit}
         />
         {isPassword ? (
           <TouchableOpacity

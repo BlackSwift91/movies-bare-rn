@@ -1,13 +1,13 @@
-import {ScrollView, StyleSheet} from 'react-native';
-import React, {FC} from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
+import React, { FC } from 'react';
 
-import {COLORS} from '../assets/theme';
+import { COLORS } from '../assets/theme';
 
-import {useAppDispatch} from '../store/hooks';
+import { useAppDispatch } from '../store/hooks';
 
 import Button from '../components/Button';
-import {ISettings} from '../navigation/INavigation';
-import {logOutResetState} from '../store';
+import { ISettings } from '../navigation/INavigation';
+import { logOutResetState } from '../store';
 
 const Settings: FC<ISettings> = () => {
   const dispatch = useAppDispatch();

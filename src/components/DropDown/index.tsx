@@ -1,9 +1,9 @@
-import {StyleSheet, View, Text} from 'react-native';
-import React, {Dispatch, FC, SetStateAction, useEffect, useState} from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 
 import DropDownPicker from 'react-native-dropdown-picker';
 
-import {COLORS} from '../../assets/theme';
+import { COLORS } from '../../assets/theme';
 import ArrowDownIcon from '../../assets/svg/ArrowDownIcon';
 import ArrowUpIcon from '../../assets/svg/ArrowUpIcon';
 
@@ -20,19 +20,17 @@ type DropDownItems = {
   onFocus?: () => void;
 };
 
-export const DropDown: FC<IProp> = ({item = '', setItem, error, onFocus}) => {
+export const DropDown: FC<IProp> = ({ item = '', setItem, error, onFocus }) => {
   const [DDOpen, setDDOpen] = useState(false);
   const [formatLabel, setFormatLabel] = useState('');
 
   const [isFocused, setIsFocused] = useState(false);
-  const [languageFilteredItems, setLanguageFilteredItems] = useState<
-    DropDownItems[]
-  >([]);
+  const [languageFilteredItems, setLanguageFilteredItems] = useState<DropDownItems[]>([]);
 
   const [formatItems, setFormatItems] = useState([
-    {label: 'VHS', value: 'VHS'},
-    {label: 'DVD', value: 'DVD'},
-    {label: 'Blue-ray', value: 'Blue-Ray'},
+    { label: 'VHS', value: 'VHS' },
+    { label: 'DVD', value: 'DVD' },
+    { label: 'Blu-Ray', value: 'Blu-Ray' },
   ]);
 
   useEffect(() => {
@@ -61,7 +59,7 @@ export const DropDown: FC<IProp> = ({item = '', setItem, error, onFocus}) => {
         maxHeight={150}
         listMode={'SCROLLVIEW'}
         zIndex={100}
-        scrollViewProps={{showsVerticalScrollIndicator: false}}
+        scrollViewProps={{ showsVerticalScrollIndicator: false }}
         showArrowIcon={true}
         showTickIcon={false}
         ArrowUpIconComponent={() => <ArrowUpIcon />}

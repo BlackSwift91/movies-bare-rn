@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface UserState {
   token: string | null;
@@ -18,6 +18,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const {setUserToken} = userSlice.actions;
+export const { setUserToken } = userSlice.actions;
 
 export default userSlice.reducer;

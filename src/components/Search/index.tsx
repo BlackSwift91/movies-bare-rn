@@ -8,26 +8,21 @@ import {
   NativeSyntheticEvent,
   TextInputEndEditingEventData,
 } from 'react-native';
-import React, {FC, useState} from 'react';
-import {COLORS} from '../../assets/theme';
+import React, { FC, useState } from 'react';
+import { COLORS } from '../../assets/theme';
 import ActorIcon from '../../assets/svg/ActorIcon';
 import TitleIcon from '../../assets/svg/TitleIcon';
 
 interface IProps {
   value: string;
-  changeValue: (
-    value: string,
-    searchType: 'title' | 'actor' | 'search',
-  ) => Promise<void>;
+  changeValue: (value: string, searchType: 'title' | 'actor' | 'search') => Promise<void>;
   isPassword?: boolean;
   maxLength?: number;
   placeholder?: string;
   isDecimal?: boolean;
   error?: string | null;
   onFocus?: () => void;
-  onEndEditing?: (
-    e: NativeSyntheticEvent<TextInputEndEditingEventData>,
-  ) => void;
+  onEndEditing?: (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => void;
   componentStyle?: ViewStyle | undefined;
 }
 
@@ -62,10 +57,7 @@ const Search: FC<IProps> = ({
   };
 
   const onChange = (val: string) => {
-    changeValue(
-      val,
-      isSearchByTitle ? 'title' : isSearchByActor ? 'actor' : 'search',
-    );
+    changeValue(val, isSearchByTitle ? 'title' : isSearchByActor ? 'actor' : 'search');
   };
 
   return (
@@ -102,7 +94,7 @@ const Search: FC<IProps> = ({
           {isSearchByTitle ? <TitleIcon /> : undefined}
           {isSearchByActor ? <ActorIcon /> : undefined}
           {isSearchByActorAndTitle ? (
-            <View style={{position: 'absolute', flexDirection: 'row'}}>
+            <View style={{ position: 'absolute', flexDirection: 'row' }}>
               <TitleIcon />
               <ActorIcon />
             </View>
@@ -144,6 +136,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 18,
     justifyContent: 'center',
+    flex: 1,
   },
   errorStyle: {
     borderColor: 'red',

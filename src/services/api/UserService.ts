@@ -1,18 +1,13 @@
 import axios from 'axios';
-import {API, baseUrl} from '../../constants';
+import { API, baseUrl } from '../../constants';
 
 class UserService {
-  async userSignUp(
-    email: string,
-    name: string,
-    password: string,
-    confirmPassword: string,
-  ) {
+  async userSignUp(email: string, name: string, password: string, confirmPassword: string) {
     const config = {
       method: 'post',
       url: `${baseUrl}${API}users`,
-      headers: {'Content-Type': 'application/json'},
-      data: {email, name, password, confirmPassword},
+      headers: { 'Content-Type': 'application/json' },
+      data: { email, name, password, confirmPassword },
     };
 
     return axios
@@ -27,8 +22,8 @@ class UserService {
     const config = {
       method: 'post',
       url: `${baseUrl}${API}sessions`,
-      headers: {'Content-Type': 'application/json'},
-      data: {email, password},
+      headers: { 'Content-Type': 'application/json' },
+      data: { email, password },
     };
 
     return axios
